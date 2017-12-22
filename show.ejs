@@ -1,0 +1,36 @@
+var express = require('express');
+var path = require('path');
+
+// init app
+var app = express();
+
+// setup template engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+//mongodb connection
+const MongoClient = require('mongodb').MongoClient;
+const mongoURL = 'mongodb://localhost:27017/todo';
+
+MongoClient.connect(mongoURL, function(err, database){
+	console.log('MongoDB connected!');
+	if(err) {
+		console.log(err);
+	}
+	todos = database.collection('todos');
+});
+
+
+// routes
+app.get('/', function(req, res) {
+	res.render('show', {name: 'Arbita'});
+});
+
+
+
+
+
+
+app.listen(5000, function(){
+	console.log('App listening at http://localhost:5000');
+});
